@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 88%;
+  max-width: 40em;
+  margin: 1em auto;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: #fff;
+}
+
+form > p {
+  max-width: 50ch;
+}
+
+form label,
+form input {
+  display: block;
+  width: 100%;
+}
+
+input:not([type="checkbox"]),
+button {
+  padding: 0.375em 0.75em;
+  font: inherit;
+}
+
+[role="list"] {
+  padding: 0;
+  margin: 2em 0;
+  list-style: none;
+}
+
+li + li {
+  margin-top: 1em;
+}
+
+:checked + label {
+  text-decoration: line-through;
+}
+
+/* https://ar.al/2021/08/24/implementing-dark-mode-in-a-handful-of-lines-of-css-with-css-filters/ */
+@media (prefers-color-scheme: dark) {
+  html {
+    background: #000;
+  }
+
+  body {
+    filter: invert(100%) hue-rotate(180deg);
+  }
+}
