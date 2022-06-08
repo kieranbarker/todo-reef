@@ -1,17 +1,17 @@
 const storageKey = "todo-reef";
 
-function getData() {
+function getStorage() {
   const data = localStorage.getItem(storageKey);
 
   if (data) {
     return JSON.parse(data);
   }
 
-  return [];
+  return { toDos: [] };
 }
 
-function setData(data) {
+function setStorage(data) {
   localStorage.setItem(storageKey, JSON.stringify(data));
 }
 
-export { getData, setData };
+export { getStorage, setStorage };

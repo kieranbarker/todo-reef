@@ -1,12 +1,12 @@
 import Reef from "./reef/reef.es.min.js";
 import template from "./templates.js";
-import { getData, setData } from "./storage.js";
+import { getStorage, setStorage } from "./storage.js";
 
 //
 // Variables
 //
 
-const data = { items: getData() };
+const data = getStorage();
 const app = new Reef("#app", { data, template });
 
 //
@@ -23,7 +23,7 @@ function handleSubmit(event) {
   if (!value) return;
 
   const toDo = { name: value, done: false };
-  app.data.items.push(toDo);
+  app.data.toDos.push(toDo);
 
   input.value = "";
 }
@@ -36,18 +36,19 @@ function handleClick(event) {
   const confirmClear = window.confirm(message);
   if (!confirmClear) return;
 
-  app.data.items = [];
+  app.data.toDos = [];
 }
 
 function handleChange(event) {
   const { index } = event.target.dataset;
   if (!index) return;
 
-  app.data.items[index].done = event.target.checked;
+  const toDo = app.data.toDos[index];
+  toDo.done = event.target.checked;
 }
 
 function handleRender() {
-  setData(app.data.items);
+  setStorage(app.data);
 }
 
 //

@@ -1,26 +1,28 @@
 import { htmlSpecialChars } from "./utilities.js";
 
-function template({ items }) {
-  const prompt = `
+function template({ toDos }) {
+  const Prompt = `
     <p>
       <em>Add some to-dos...</em>
     </p>
   `;
 
-  const toDoList = `
+  const ToDoList = `
     <ul role="list">
-      ${items.map(listItem).join("")}
+      ${toDos.map(ToDo).join("")}
     </ul>
   `;
 
   return `
-    ${form(items.length)}
-    ${items.length < 1 ? prompt : toDoList}
+    ${Form(toDos.length)}
+    ${toDos.length < 1 ? Prompt : ToDoList}
   `;
 }
 
-function form(numItems = 0) {
-  const clearButton = `
+function Form(numItems = 0) {
+  const inputId = "to-do";
+
+  const ClearButton = `
     <button type="button" data-action="clear">
       Clear list
     </button>
@@ -29,18 +31,18 @@ function form(numItems = 0) {
   return `
     <form>
       <p>
-        <label for="to-do">What do you need to do?</label>
-        <input id="to-do" type="text" required />
+        <label for="${inputId}">What do you need to do?</label>
+        <input id="${inputId}" type="text" required />
       </p>
       <p>
         <button type="submit">Add to-do</button>
-        ${numItems > 0 ? clearButton : ""}
+        ${numItems > 0 ? ClearButton : ""}
       </p>
     </form>
   `;
 }
 
-function listItem(toDo, index) {
+function ToDo(toDo, index) {
   const id = `todo-${index}`;
   const checked = toDo.done ? "checked" : "";
 
@@ -52,4 +54,4 @@ function listItem(toDo, index) {
   `;
 }
 
-export { template as default, form, listItem };
+export { template as default, Form, ToDo };
