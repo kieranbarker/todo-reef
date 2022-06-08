@@ -1,28 +1,28 @@
 import { htmlSpecialChars } from "./utilities.js";
 
 function template({ toDos }) {
-  const Prompt = `
+  const prompt = `
     <p>
       <em>Add some to-dos...</em>
     </p>
   `;
 
-  const ToDoList = `
+  const toDoList = `
     <ul role="list">
-      ${toDos.map(ToDo).join("")}
+      ${toDos.map(toDo).join("")}
     </ul>
   `;
 
   return `
-    ${Form(toDos.length)}
-    ${toDos.length < 1 ? Prompt : ToDoList}
+    ${form(toDos.length)}
+    ${toDos.length < 1 ? prompt : toDoList}
   `;
 }
 
-function Form(numItems = 0) {
+function form(numItems = 0) {
   const inputId = "to-do";
 
-  const ClearButton = `
+  const clearButton = `
     <button type="button" data-action="clear">
       Clear list
     </button>
@@ -36,13 +36,13 @@ function Form(numItems = 0) {
       </p>
       <p>
         <button type="submit">Add to-do</button>
-        ${numItems > 0 ? ClearButton : ""}
+        ${numItems > 0 ? clearButton : ""}
       </p>
     </form>
   `;
 }
 
-function ToDo(toDo, index) {
+function toDo(toDo, index) {
   const id = `todo-${index}`;
   const checked = toDo.done ? "checked" : "";
 
@@ -54,4 +54,4 @@ function ToDo(toDo, index) {
   `;
 }
 
-export { template as default, Form, ToDo };
+export { template as default, form, toDo };
