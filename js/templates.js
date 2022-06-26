@@ -1,13 +1,13 @@
 import { htmlSpecialChars } from "./utilities.js";
 
 function template({ toDos }) {
-  const prompt = `
+  const prompt = /*html*/ `
     <p>
       <em>Add some to-dos...</em>
     </p>
   `;
 
-  const toDoList = `
+  const toDoList = /*html*/ `
     <ul role="list">
       ${toDos.map(toDo).join("")}
     </ul>
@@ -22,13 +22,13 @@ function template({ toDos }) {
 function form(numItems = 0) {
   const inputId = "to-do";
 
-  const clearButton = `
+  const clearButton = /*html*/ `
     <button type="button" data-action="clear">
       Clear list
     </button>
   `;
 
-  return `
+  return /*html*/ `
     <form>
       <p>
         <label for="${inputId}">What do you need to do?</label>
@@ -46,7 +46,7 @@ function toDo(toDo, index) {
   const id = `todo-${index}`;
   const checked = toDo.done ? "checked" : "";
 
-  return `
+  return /*html*/ `
     <li>
       <input type="checkbox" id="${id}" data-index="${index}" ${checked} />
       <label for="${id}">${htmlSpecialChars(toDo.name)}</label>
