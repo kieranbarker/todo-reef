@@ -41,14 +41,3 @@ li + li {
 :checked + label {
   text-decoration: line-through;
 }
-
-/* https://ar.al/2021/08/24/implementing-dark-mode-in-a-handful-of-lines-of-css-with-css-filters/ */
-@media (prefers-color-scheme: dark) {
-  html {
-    background: #000;
-  }
-
-  body {
-    filter: invert(100%) hue-rotate(180deg);
-  }
-}
