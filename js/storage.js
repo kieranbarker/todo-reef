@@ -1,10 +1,10 @@
 const storageKey = "todo-reef";
 
 function getToDos() {
-  const data = localStorage.getItem(storageKey);
+  const toDos = localStorage.getItem(storageKey);
 
-  if (data) {
-    return JSON.parse(data);
+  if (toDos) {
+    return JSON.parse(toDos);
   }
 
   return [];

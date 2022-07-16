@@ -1,4 +1,5 @@
-import { store, component } from "./reef/reef.es.min.js";
+import { store, component } from "./reef/reef.es.js";
+import { nanoid } from "./nanoid/nanoid.js";
 import template from "./templates.js";
 import { getToDos, setToDos } from "./storage.js";
 
@@ -22,7 +23,7 @@ function handleSubmit(event) {
   const value = input.value.trim();
   if (!value) return;
 
-  const toDo = { name: value, done: false };
+  const toDo = { id: nanoid(), name: value, done: false };
   toDos.push(toDo);
 
   input.value = "";
@@ -30,19 +31,27 @@ function handleSubmit(event) {
 
 function handleClick(event) {
   const { action } = event.target.dataset;
-  if (action !== "clear") return;
+  if (action !== "delete") return;
 
-  const message = "Are you sure you want to clear your to-do list?";
-  const confirmClear = window.confirm(message);
-  if (!confirmClear) return;
+  const listItem = event.target.closest(".toDo");
+  if (!listItem) return;
 
-  while (toDos.length > 0) {
-    toDos.pop();
-  }
+  const { name, index } = listItem.dataset;
+  if (!name || !index) return;
+
+  const message = `Are you sure you want to delete '${name}'?`;
+
+  const confirmDelete = window.confirm(message);
+  if (!confirmDelete) return;
+
+  toDos.splice(index, 1);
 }
 
 function handleChange(event) {
-  const { index } = event.target.dataset;
+  const listItem = event.target.closest(".toDo");
+  if (!listItem) return;
+
+  const { index } = listItem.dataset;
   if (!index) return;
 
   const toDo = toDos[index];

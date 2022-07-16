@@ -14,42 +14,47 @@ function template(toDos) {
   `;
 
   return `
-    ${form(toDos.length)}
+    ${form()}
     ${toDos.length < 1 ? prompt : toDoList}
   `;
 }
 
-function form(numItems = 0) {
+function form() {
   const inputId = "newToDo";
 
-  const clearButton = /*html*/ `
-    <button type="button" data-action="clear">
-      Clear list
-    </button>
-  `;
-
   return /*html*/ `
-    <form>
+    <form class="form">
       <p>
         <label for="${inputId}">What do you need to do?</label>
         <input id="${inputId}" type="text" required />
       </p>
       <p>
         <button type="submit">Add to-do</button>
-        ${numItems > 0 ? clearButton : ""}
       </p>
     </form>
   `;
 }
 
 function toDo(toDo, index) {
-  const id = `todo-${index}`;
+  const inputId = `toDo-${index}`;
   const checked = toDo.done ? "checked" : "";
 
   return /*html*/ `
-    <li>
-      <input type="checkbox" id="${id}" data-index="${index}" ${checked} />
-      <label for="${id}">${htmlSpecialChars(toDo.name)}</label>
+    <li
+      id="${toDo.id}"
+      class="toDo"
+      data-name="${toDo.name}"
+      data-index="${index}"
+    >
+      <input id="${inputId}" type="checkbox" ${checked} />
+      <label for="${inputId}">${htmlSpecialChars(toDo.name)}</label>
+      <button
+        type="button"
+        data-action="delete"
+        aria-label="Delete '${toDo.name}'"
+      >
+        Delete
+      </button>
     </li>
   `;
 }
