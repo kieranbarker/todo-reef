@@ -1,6 +1,6 @@
 import { htmlSpecialChars } from "./utilities.js";
 
-function template({ toDos }) {
+function template(toDos) {
   const prompt = /*html*/ `
     <p>
       <em>Add some to-dos...</em>
@@ -20,7 +20,7 @@ function template({ toDos }) {
 }
 
 function form(numItems = 0) {
-  const inputId = "to-do";
+  const inputId = "newToDo";
 
   const clearButton = /*html*/ `
     <button type="button" data-action="clear">

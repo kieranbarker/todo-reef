@@ -1,13 +1,13 @@
-import Reef from "./reef/reef.es.min.js";
+import { store, component } from "./reef/reef.es.min.js";
 import template from "./templates.js";
-import { getStorage, setStorage } from "./storage.js";
+import { getToDos, setToDos } from "./storage.js";
 
 //
-// Variables
+// Constants
 //
 
-const data = getStorage();
-const app = new Reef("#app", { data, template });
+const toDos = store(getToDos());
+const app = document.querySelector("#app");
 
 //
 // Functions
@@ -16,14 +16,14 @@ const app = new Reef("#app", { data, template });
 function handleSubmit(event) {
   event.preventDefault();
 
-  const input = event.target.elements["to-do"];
+  const input = event.target.elements.newToDo;
   if (!input) return;
 
   const value = input.value.trim();
   if (!value) return;
 
   const toDo = { name: value, done: false };
-  app.data.toDos.push(toDo);
+  toDos.push(toDo);
 
   input.value = "";
 }
@@ -36,28 +36,30 @@ function handleClick(event) {
   const confirmClear = window.confirm(message);
   if (!confirmClear) return;
 
-  app.data.toDos = [];
+  while (toDos.length > 0) {
+    toDos.pop();
+  }
 }
 
 function handleChange(event) {
   const { index } = event.target.dataset;
   if (!index) return;
 
-  const toDo = app.data.toDos[index];
+  const toDo = toDos[index];
   toDo.done = event.target.checked;
 }
 
 function handleRender() {
-  setStorage(app.data);
+  setToDos(toDos);
 }
 
 //
 // Inits & Event Listeners
 //
 
-app.render();
+component(app, template.bind(null, toDos));
 
-app.elem.addEventListener("click", handleClick);
-app.elem.addEventListener("change", handleChange);
-app.elem.addEventListener("submit", handleSubmit);
-app.elem.addEventListener("reef:render", handleRender);
+app.addEventListener("click", handleClick);
+app.addEventListener("change", handleChange);
+app.addEventListener("submit", handleSubmit);
+app.addEventListener("reef:render", handleRender);
