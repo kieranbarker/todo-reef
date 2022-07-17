@@ -1,5 +1,5 @@
-import { store, component } from "./reef/reef.es.js";
-import { nanoid } from "./nanoid/nanoid.js";
+import { store, component } from "./reef/reef.min.js";
+import { nanoid } from "./nanoid/nanoid.min.js";
 import template from "./templates.js";
 import { getToDos, setToDos } from "./storage.js";
 
