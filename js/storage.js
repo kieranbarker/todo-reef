@@ -10,7 +10,7 @@ function getToDos() {
   return [];
 }
 
-function setToDos(toDos) {
+function setToDos(toDos = []) {
   localStorage.setItem(storageKey, JSON.stringify(toDos));
 }
 
